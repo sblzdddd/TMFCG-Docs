@@ -14,14 +14,14 @@
 
 <script setup lang="ts">
 interface Props {
-  label?: string
-  icon?: string
+  label?: string;
+  icon?: string;
 }
 
 withDefaults(defineProps<Props>(), {
-  label: '',
-  icon: undefined
-})
+  label: "",
+  icon: undefined,
+});
 </script>
 
 <style lang="postcss" scoped>
@@ -32,4 +32,4 @@ withDefaults(defineProps<Props>(), {
 :deep(.v-expansion-panel-text__wrapper) {
   @apply text-sm;
 }
-</style> 
+</style>

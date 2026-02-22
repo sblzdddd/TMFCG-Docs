@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import NavToc from "~/components/Docs/NavToc.vue";
 
 interface NavigationItem {
   title: string;
@@ -6,70 +7,64 @@ interface NavigationItem {
   children?: NavigationItem[];
 }
 
-definePageMeta({
-  layout: 'docs',
-})
-const route = useRoute()
-const { data: page } = await useAsyncData(route.path, () => queryCollection('docs').path(route.path.replace('/docs', '')).first())
-const { data: navigation } = await useAsyncData<NavigationItem[]>('navigation', () => queryCollectionNavigation('docs'))
+const route = useRoute();
+const { data: page } = await useAsyncData(route.path, () =>
+  queryCollection("docs").path(route.path.replace("/docs", "")).first(),
+);
+const { data: navigation } = await useAsyncData<NavigationItem[]>("navigation", () =>
+  queryCollectionNavigation("docs"),
+);
 
 const currentSection = computed(() => {
-  if (!navigation.value || !route.path) return null
-  const currentPath = route.path.replace('/docs', '')
+  if (!navigation.value || !route.path) return null;
+  const currentPath = route.path.replace("/docs", "");
   for (const section of navigation.value) {
     if (section.children?.some(child => child.path === currentPath)) {
-      return section.title
+      return section.title;
     }
   }
-  return null
-})
+  return null;
+});
 
 // Get all pages in a flat array for navigation
 const allPages = computed(() => {
-  if (!navigation.value) return []
+  if (!navigation.value) return [];
   return navigation.value.reduce((acc: NavigationItem[], section) => {
     if (section.children) {
-      acc.push(...section.children)
+      acc.push(...section.children);
     }
-    return acc
-  }, [])
-})
+    return acc;
+  }, []);
+});
 
 // Find current page index
 const currentPageIndex = computed(() => {
-  const currentPath = route.path.replace('/docs', '')
-  return allPages.value.findIndex(page => page.path === currentPath)
-})
+  const currentPath = route.path.replace("/docs", "");
+  return allPages.value.findIndex(page => page.path === currentPath);
+});
 
 // Get previous and next pages
 const previousPage = computed(() => {
   if (currentPageIndex.value > 0) {
-    return allPages.value[currentPageIndex.value - 1]
+    return allPages.value[currentPageIndex.value - 1];
   }
-  return null
-})
+  return null;
+});
 
 const nextPage = computed(() => {
   if (currentPageIndex.value < allPages.value.length - 1) {
-    return allPages.value[currentPageIndex.value + 1]
+    return allPages.value[currentPageIndex.value + 1];
   }
-  return null
-})
-
-onMounted(() => {
-  LoadingState.isLoading = false
-})
+  return null;
+});
 
 useSeoMeta({
   title: page.value?.title,
-  description: page.value?.description
-})
-
-
+  description: page.value?.description,
+});
 </script>
 
 <template>
-  
   <div class="flex flex-col-reverse lg:grid lg:grid-cols-10 lg:gap-10">
     <div class="lg:col-span-8 mb-40">
       <template v-if="page">
@@ -79,36 +74,26 @@ useSeoMeta({
           <p class="text-[1.1rem] text-gray-500 pl-1">{{ page.description }}</p>
         </div>
         <ContentRenderer class="docs-content" :value="page" />
-        
+
         <!-- Navigation Buttons -->
         <div class="grid grid-cols-2 items-center mt-16 pt-8 border-t border-gray-200">
-          <NuxtLink
-            v-if="previousPage"
-            v-ripple
-            :to="`/docs${previousPage.path}`"
-            class="bottomLink"
-          >
+          <NuxtLink v-if="previousPage" v-ripple :to="`/docs${previousPage.path}`" class="bottomLink">
             <Icon name="mdi:chevron-left" :size="20" />
             <div class="flex flex-col">
               <span class="text-sm text-gray-500">上一页</span>
               <span class="font-medium">{{ previousPage.title }}</span>
             </div>
           </NuxtLink>
-          <div v-else class="flex-1"/>
-          
-          <NuxtLink
-            v-if="nextPage"
-            v-ripple
-            :to="`/docs${nextPage.path}`"
-            class="w-full bottomLink justify-end"
-          >
+          <div v-else class="flex-1" />
+
+          <NuxtLink v-if="nextPage" v-ripple :to="`/docs${nextPage.path}`" class="w-full bottomLink justify-end">
             <div class="flex flex-col text-right">
               <span class="text-sm text-gray-500">下一页</span>
               <span class="font-medium">{{ nextPage.title }}</span>
             </div>
             <Icon name="mdi:chevron-right" :size="20" />
           </NuxtLink>
-          <div v-else class="flex-1"/>
+          <div v-else class="flex-1" />
         </div>
       </template>
       <template v-else>
@@ -119,7 +104,7 @@ useSeoMeta({
         </div>
       </template>
     </div>
-    <Docs-NavToc v-if="page?.body?.toc?.links" :tocs="page?.body?.toc?.links" />
+    <NavToc v-if="page?.body?.toc?.links" :tocs="page?.body?.toc?.links" />
   </div>
 </template>
 <style lang="postcss">
@@ -132,15 +117,14 @@ useSeoMeta({
 }
 
 .docs-content a:hover {
-    background-size: 100% 2px !important;
+  background-size: 100% 2px !important;
 }
 
 .docs-content :not(h1):not(h2):not(h3):not(h4):not(h5):not(h6) > a:not(.v-btn) {
-    @apply text-[#ce8d32];
+  @apply text-[#ce8d32];
 }
 
 .bottomLink {
   @apply flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-black/5 transition-colors;
 }
-
 </style>

@@ -1,62 +1,50 @@
 export default defineNuxtConfig({
-  compatibilityDate: '2024-11-01',
-  app: {
-      pageTransition: {name: 'page', mode: 'out-in'},
-      layoutTransition: {name: 'page', mode: 'out-in'}
+  compatibilityDate: "2024-11-01",
+  ssr: false,
+  components: false,
+  imports: {
+    autoImport: true,
   },
-  devtools: { enabled: true, timeline: { enabled: true } },
+  typescript: {
+    shim: false,
+  },
+  devtools: { enabled: false },
+  app: {
+    pageTransition: { name: "page", mode: "out-in" },
+    layoutTransition: { name: "page", mode: "out-in" },
+  },
 
   content: {
     build: {
       markdown: {
         remarkPlugins: {
-          'remark-math': {},
+          "remark-math": {},
         },
         rehypePlugins: {
-          'rehype-mathjax': {},
+          "rehype-mathjax": {},
         },
         toc: {
           depth: 3,
-          searchDepth: 3
-        }
-      }
-    }
+          searchDepth: 3,
+        },
+      },
+    },
   },
 
   // global css
-  css: ['~/styles/global.css'],
-  
+  css: ["~/styles/global.css"],
+
   // structure out the code
-  srcDir: 'src/',
+  srcDir: "src/",
 
   experimental: {
-    asyncContext: true
+    asyncContext: true,
   },
 
-  modules: [
-    '@nuxt/eslint',
-    '@nuxt/fonts',
-    '@nuxt/icon',
-    '@nuxt/image',
-    '@nuxtjs/tailwindcss',
-    'vuetify-nuxt-module',
-    '@nuxt/content',
-    'nuxt-monaco-editor'
-  ],
+  modules: ["@nuxt/icon", "@nuxtjs/tailwindcss", "vuetify-nuxt-module", "@nuxt/content"],
 
   vuetify: {
-    moduleOptions: {
-    },
-    vuetifyOptions: './vuetify.config.ts'
+    moduleOptions: {},
+    vuetifyOptions: "./vuetify.config.ts",
   },
-
-  nitro: {
-    experimental: {
-      openAPI: true,
-      websocket: true,
-    },
-    prerender: {
-      concurrency: 12,
-    },
-  }
-})
+});

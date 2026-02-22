@@ -5,7 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import './content.css'
+import "./content.css";
 </script>
 
 <style lang="postcss">
@@ -18,7 +18,7 @@ import './content.css'
 
   .v-expansion-panel-title {
     @apply bg-primary/20 border-b-2 border-primary/40;
-    
+
     &--active {
       @apply border-b border-primary/40;
     }
@@ -41,4 +41,4 @@ import './content.css'
     }
   }
 }
-</style> 
+</style>

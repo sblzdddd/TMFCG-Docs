@@ -1,5 +1,7 @@
 @import "./themes/Mystia.css";
 @import "./themes/Kasodani.css";
+@import "../assets/fonts/jiangxizhuokai/result.css";
+@import "../assets/fonts/gloock/result.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,136 +9,82 @@
 @source "../../content/**/*";
 
 .gloock {
-    font-family: "Gloock", serif;
-    font-weight: 600;
-    font-style: normal;
-}
-
-.itim {
-    font-family: "Itim", cursive;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.ma-shan-zheng-regular {
-    font-family: "Ma Shan Zheng", cursive;
-    font-weight: 400;
-    font-style: normal;
-}
-
-
-/*font definition*/
-@font-face {
-    font-family: 'jiangxizhuokai';
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'xianer';
-    src: url('../fonts/XianEr.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'YRDZS';
-    src: url('../fonts/YRDZS-Bold.ttf') format('truetype');
-    font-weight: bold;
-    font-style: normal;
+  font-family: "Gloock", serif;
+  font-weight: 600;
+  font-style: normal;
 }
 
 .jiangxizhuokai {
-    font-family: 'jiangxizhuokai', sans-serif;
+  font-family: "jiangxizhuokai", sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    @apply text-foreground;
-    font-family: 'jiangxizhuokai', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-foreground;
+  font-family: "jiangxizhuokai", sans-serif;
 }
 
-.v-btn, .v-card-title {
-    font-family: 'jiangxizhuokai', sans-serif;
-    @apply font-medium;
+.v-btn,
+.v-card-title {
+  font-family: "jiangxizhuokai", sans-serif;
+  @apply font-medium;
 }
-
 
 .title-with-dots {
-    @apply flex items-center justify-center gap-3 w-full text-lg text-center tracking-widest m-0;
-    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
-    transition: transform 0.4s cubic-bezier(0.6, 0, 0.35, 1.05) 0.1s,
+  @apply flex items-center justify-center gap-3 w-full text-lg text-center tracking-widest m-0;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+  transition:
+    transform 0.4s cubic-bezier(0.6, 0, 0.35, 1.05) 0.1s,
     opacity 0.4s cubic-bezier(0.6, 0, 0.35, 1.05) 0.2s;
-    opacity: 1;
+  opacity: 1;
 
-    &::before,
-    &::after {
-        content: "";
-        @apply w-1.5 h-1.5 rounded-full bg-[currentColor];
-        box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
-        transition: all 0.4s cubic-bezier(0, 0.6, 0.35, 1.05) 0.1s;
-    }
+  &::before,
+  &::after {
+    content: "";
+    @apply w-1.5 h-1.5 rounded-full bg-[currentColor];
+    box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+    transition: all 0.4s cubic-bezier(0, 0.6, 0.35, 1.05) 0.1s;
+  }
 }
 
-
-html, body {
-    @apply m-0 p-0 bg-background
+html,
+body {
+  @apply m-0 p-0 bg-transparent
     w-full min-h-screen
     overflow-hidden;
 }
 
 a {
-    @apply hover:opacity-80;
-    transition: all 0.3s ease;
-}
-
-
-.page-root {
-    @apply w-screen h-full xl:px-20 lg:px-16 md:px-8 px-4 flex flex-col lg:flex-row justify-between;
-}
-
-.bg-primary > .v-btn__overlay {
-    @apply !bg-[#ffdb79];
-}
-
-.v-btn.bg-primary:hover > .v-btn__overlay {
-    @apply !opacity-[0.3];
+  @apply hover:opacity-80;
+  transition: all 0.3s ease;
 }
 
 /* Scrollbar styling */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
-    background: transparent;
+  width: 8px;
+  height: 8px;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-track {
-    background: transparent;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.2);
-    border-radius: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 /* Firefox scrollbar styling */
 * {
-    scrollbar-width: thin;
-    scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 }
-
-.usednamesaaaaaaaaaaaa {
-    @apply animate-bounce;
-}
-.usednamesaaaaaaaaaaaaa {
-    @apply animate-spin;
-}
-.usednamesaaaaaaaaaaaaaa {
-    @apply animate-pulse aspect-[16/9];
-}
-
-
-

@@ -1,6 +1,6 @@
 <template>
-  <div 
-    class="dialog-root" 
+  <div
+    class="dialog-root"
     :class="`${props.rightAlign ? 'justify-end' : 'justify-start'}`"
     :style="`
       --char-width-max: ${props.sizes[0][0]}rem;
@@ -27,16 +27,16 @@
         class="character-image"
         :class="{ 'black-masked': blackMask }"
         @load="onImageLoad"
-      >
+      />
     </div>
-    
+
     <!-- Dialog Box Section -->
     <div class="dialog-box absolute bottom-0" :class="`${props.rightAlign ? 'isRight' : 'isLeft'}`">
       <!-- Character Name -->
       <div class="character-name-section border-b-2 border-primary/20 pb-1 mb-1">
         <span class="character-name jiangxizhuokai">{{ charDisplayName || character }}</span>
       </div>
-      
+
       <!-- Dialog Content -->
       <div class="dialog-content">
         <slot />
@@ -46,9 +46,7 @@
 </template>
 
 <script lang="ts" setup>
-const {GetCharacterData} = useCharacterData();
-
-const { warn, debug } = useLogger('CharDialog');
+const { GetCharacterData } = useCharacterData();
 
 const charImageSrc = ref("");
 const characterImage = ref();
@@ -58,84 +56,92 @@ const props = defineProps({
   character: {
     type: String,
     default: "橙",
-    required: false
+    required: false,
   },
   charDisplayName: {
     type: String,
     default: undefined,
-    required: false
+    required: false,
   },
   variant: {
     type: String,
     default: "无表情",
-    required: false
+    required: false,
   },
   rightAlign: {
     type: Boolean,
     default: false,
-    required: false
+    required: false,
   },
   sizes: {
     type: Array<Array<number>>,
-    default: () => [[12, 16, 20, 27, 35], [12, 16, 20, 27, 35]],
-    required: false
+    default: () => [
+      [12, 16, 20, 27, 35],
+      [12, 16, 20, 27, 35],
+    ],
+    required: false,
   },
   characterClass: {
     type: String,
     default: "",
-    required: false
+    required: false,
   },
   blackMask: {
     type: Boolean,
     default: false,
-    required: false
-  }
-})
+    required: false,
+  },
+});
 
 function setup() {
-  debug(`loading character: ${props.character} ${props.variant}`);
+  console.log(`loading character: ${props.character} ${props.variant}`);
   const charData = GetCharacterData(props.character);
   if (!charData) {
-    warn(`charData not found: ${props.character}`);
-    import(`@/assets/images/characters/Fallback 0.png`).then((module) => {
+    console.warn(`charData not found: ${props.character}`);
+    import(`@/assets/images/characters/Fallback 0.png`).then(module => {
       charImageSrc.value = module.default;
-    })
+    });
     return;
   }
   if (!charData.images.includes(props.variant)) {
-    warn(`variant not found: ${props.variant}`);
-    import(`@/assets/images/characters/Fallback 0.png`).then((module) => {
+    console.warn(`variant not found: ${props.variant}`);
+    import(`@/assets/images/characters/Fallback 0.png`).then(module => {
       charImageSrc.value = module.default;
-    })
+    });
     return;
   }
   isImageLoaded.value = false;
-  import(`@/assets/images/characters/${charData.image_prefix} ${props.variant}.png`).then((module) => {
+  import(`@/assets/images/characters/${charData.image_prefix} ${props.variant}.png`).then(module => {
     if (characterImage.value) charImageSrc.value = module.default;
     else {
-      import(`@/assets/images/characters/Fallback 0.png`).then((module) => {
+      import(`@/assets/images/characters/Fallback 0.png`).then(module => {
         charImageSrc.value = module.default;
-      })
+      });
     }
-  })
+  });
 }
 
 function onImageLoad() {
   isImageLoaded.value = true;
 }
 
-watch(() => props.character, () => {
-  setup();
-})
+watch(
+  () => props.character,
+  () => {
+    setup();
+  },
+);
 
-watch(() => props.variant, () => {
-  setup();
-})
-
+watch(
+  () => props.variant,
+  () => {
+    setup();
+  },
+);
 
 onMounted(() => {
   setup();
-})
+});
 </script>
 
 <style lang="postcss" scoped>
@@ -155,10 +161,12 @@ onMounted(() => {
 .character-image {
   @apply w-full h-full object-cover object-top;
   image-rendering: pixelated;
-  filter: drop-shadow(2px 0px 0px #f3ecdc) drop-shadow(-1px 0px 0px #f3ecdc) drop-shadow(0px 2px 0px #f3ecdc) drop-shadow(0px -1px 0px #f3ecdc);
+  filter: drop-shadow(2px 0px 0px #f3ecdc) drop-shadow(-1px 0px 0px #f3ecdc) drop-shadow(0px 2px 0px #f3ecdc)
+    drop-shadow(0px -1px 0px #f3ecdc);
 
   &.black-masked {
-    filter: brightness(0) drop-shadow(2px 0px 0px #f3ecdc) drop-shadow(-1px 0px 0px #f3ecdc) drop-shadow(0px 2px 0px #f3ecdc) drop-shadow(0px -1px 0px #f3ecdc);
+    filter: brightness(0) drop-shadow(2px 0px 0px #f3ecdc) drop-shadow(-1px 0px 0px #f3ecdc)
+      drop-shadow(0px 2px 0px #f3ecdc) drop-shadow(0px -1px 0px #f3ecdc);
   }
 }
 
@@ -180,11 +188,19 @@ onMounted(() => {
 
 .character-name {
   @apply text-lg md:text-xl lg:text-2xl text-foreground;
-  text-shadow: 1px 0 #d3c3a1, -1px 0 #d3c3a1, 0 1px #d3c3a1, 0 -1px #d3c3a1;
+  text-shadow:
+    1px 0 #d3c3a1,
+    -1px 0 #d3c3a1,
+    0 1px #d3c3a1,
+    0 -1px #d3c3a1;
 }
 
 .dialog-content {
   @apply text-white text-xs sm:text-sm md:text-base lg:text-lg;
-  text-shadow: 1px 0 #000, -1px 0 #000, 0 1px #000, 0 -1px #000;
+  text-shadow:
+    1px 0 #000,
+    -1px 0 #000,
+    0 1px #000,
+    0 -1px #000;
 }
 </style>

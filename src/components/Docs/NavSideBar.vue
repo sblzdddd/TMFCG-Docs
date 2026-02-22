@@ -8,7 +8,12 @@
         </div>
         <ul :id="`nav-children-${group.path.replace('/', '')}`" class="nav-children overflow-hidden">
           <li v-for="item in group.children" :key="item.path" class="nav-item">
-            <NuxtLink v-ripple :to="`/docs${item.path}`" class="nav-link" :class="{ 'active': route.path === `/docs${item.path}` }">
+            <NuxtLink
+              v-ripple
+              :to="`/docs${item.path}`"
+              class="nav-link"
+              :class="{ active: route.path === `/docs${item.path}` }"
+            >
               <Icon v-if="item.icon" :name="item.icon" :size="20" />
               <span>{{ item.title }}</span>
             </NuxtLink>
@@ -20,55 +25,54 @@
 </template>
 
 <script setup lang="ts">
-import { animate } from 'animejs';
+import { animate } from "animejs";
 
 const route = useRoute();
 
 interface ContentNavigationItem {
-    title: string;
-    path: string;
-    stem?: string;
-    children?: ContentNavigationItem[];
-    page?: false;
-    [key: string]: unknown;
+  title: string;
+  path: string;
+  stem?: string;
+  children?: ContentNavigationItem[];
+  page?: false;
+  [key: string]: unknown;
 }
 
 defineProps<{
-  navigation: ContentNavigationItem[]
-}>()
+  navigation: ContentNavigationItem[];
+}>();
 
 const toggleGroup = (group: ContentNavigationItem) => {
   group.isCollapsed = !group.isCollapsed;
   if (!group.isCollapsed) {
-    const el = document.getElementById(`nav-children-${group.path.replace('/', '')}`);
+    const el = document.getElementById(`nav-children-${group.path.replace("/", "")}`);
     if (el) {
       const height = el.scrollHeight;
-      animate(`#nav-children-${group.path.replace('/', '')}`, {
+      animate(`#nav-children-${group.path.replace("/", "")}`, {
         height: `${height}px`,
         opacity: 1,
         duration: 200,
       });
     }
   } else {
-    const el = document.getElementById(`nav-children-${group.path.replace('/', '')}`);
+    const el = document.getElementById(`nav-children-${group.path.replace("/", "")}`);
     if (el) {
       const height = el.scrollHeight;
       el.style.height = `${height}px`;
       nextTick(() => {
-        animate(`#nav-children-${group.path.replace('/', '')}`, {
+        animate(`#nav-children-${group.path.replace("/", "")}`, {
           height: 0,
           opacity: 0,
           duration: 200,
         });
-      })
+      });
     }
   }
 };
-
 </script>
 <style lang="postcss">
 .nav-list {
-    @apply space-y-1;
+  @apply space-y-1;
 }
 .nav-group {
   @apply rounded-lg;
