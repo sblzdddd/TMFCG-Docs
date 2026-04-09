@@ -41,10 +41,16 @@ export default defineNuxtConfig({
     asyncContext: true,
   },
 
-  modules: ["@nuxt/icon", "@nuxtjs/tailwindcss", "vuetify-nuxt-module", "@nuxt/content"],
+  modules: [
+    "@nuxt/icon",
+    "@nuxtjs/tailwindcss",
+    // "vuetify-nuxt-module",
+    "@nuxt/content",
+    "@varlet/nuxt",
+  ],
 
-  vuetify: {
-    moduleOptions: {},
-    vuetifyOptions: "./vuetify.config.ts",
-  },
+  // vuetify: {
+  //   moduleOptions: {},
+  //   vuetifyOptions: "./vuetify.config.ts",
+  // },
 });

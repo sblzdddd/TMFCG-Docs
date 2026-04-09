@@ -49,15 +49,21 @@ defineOptions({
 </script>
 <template>
   <v-app class="!bg-transparent">
-    <v-navigation-drawer v-model="isOpen" :width="windowHeight" location="top" class="nav-drawer" temporary>
+    <!-- <v-navigation-drawer v-model="isOpen" :width="windowHeight" location="top" class="nav-drawer" temporary>
       <div class="h-full">
         <div class="flex justify-center items-center p-2">
           <h3 class="text-xl">页面导航</h3>
-          <v-btn class="fixed top-1 right-2" size="small" variant="text" icon="mdi-close" @click="isOpen = false" />
+          <var-button
+            class="fixed top-1 right-2"
+            size="small"
+            variant="text"
+            icon="mdi-close"
+            @click="isOpen = false"
+          />
         </div>
         <NavSideBar v-if="navigation" :navigation="navigation" />
       </div>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
     <div ref="pageContainer" class="page-container">
       <aside class="page-navigation">
         <NavSideBar v-if="navigation" :navigation="navigation" />

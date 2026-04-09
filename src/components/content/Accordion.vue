@@ -1,7 +1,7 @@
 <template>
-  <v-expansion-panels elevation="0" variant="default" class="accordion !border-0">
+  <var-collapse elevation="0" variant="default" class="accordion !border-0">
     <slot />
-  </v-expansion-panels>
+  </var-collapse>
 </template>
 
 <script setup lang="ts">

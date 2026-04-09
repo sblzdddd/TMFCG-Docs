@@ -1,15 +1,13 @@
 <template>
-  <v-expansion-panel>
-    <v-expansion-panel-title>
+  <var-collapse-item>
+    <template #title>
       <div class="flex items-center gap-3">
         <Icon v-if="icon" :name="icon" :size="20" />
         <span class="font-medium">{{ label }}</span>
       </div>
-    </v-expansion-panel-title>
-    <v-expansion-panel-text>
-      <slot />
-    </v-expansion-panel-text>
-  </v-expansion-panel>
+    </template>
+    <slot />
+  </var-collapse-item>
 </template>
 
 <script setup lang="ts">

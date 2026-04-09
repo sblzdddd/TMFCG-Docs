@@ -5,7 +5,7 @@
         <Icon :size="14" class="mt-1" :name="languageIcon" />
         <i>{{ filename }}</i>
       </div>
-      <v-btn
+      <var-button
         :icon="codeCopied ? 'mdi-check' : 'mdi-content-copy'"
         variant="text"
         size="x-small"
@@ -13,7 +13,7 @@
         @click="copyCode"
       />
     </div>
-    <v-btn
+    <var-button
       v-if="isInCodePreview"
       class="absolute top-1 right-1 backdrop-blur-sm"
       :icon="codeCopied ? 'mdi-check' : 'mdi-content-copy'"
